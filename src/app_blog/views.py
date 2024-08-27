@@ -1,17 +1,30 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 from django.template.context_processors import csrf
 from django.db import connection
 from django.views.decorators.http import require_http_methods
+import json
 
 # INSERT DATA
 @require_http_methods(["POST"])
 def posts_create(request):
-    title = "Judul Lain"
-    content = "Kontent Lain"
+
+    # cara baca post form-data dan x-www-form-urlencoded
+    # title = request.POST.get('title', None)
+    # content = request.POST.get('content', None)
+
+    # cara baca raw body dan parsing pake json
+    json_parsed = json.loads(request.body)
+    title = json_parsed["title"]
+    content = json_parsed["content"]
+
+    print("===")
+    print(title)
+    print(content)
+    print("===")
     
     with connection.cursor() as c:
-        c.execute("INSERT INTO posts (title, content) VALUES (%s, %s) returning *", [title, content])
+        c.execute(f"INSERT INTO posts (title, content) VALUES ({title}, {content}) returning *", [title, content])
         row = c.fetchone()
     
     print(row)
@@ -27,8 +40,12 @@ def posts_read_all(request):
     csrf_value = csrf_generate['csrf_token']  
     print(csrf_value)
 
+    title = request.GET.get('title', '')
+
     with connection.cursor() as c:
-        c.execute("SELECT * FROM posts")
+        if not title:
+            c.execute("SELECT * FROM posts")
+        c.execute("SELECT * FROM posts WHERE title ilike %s", [title])
         row = c.fetchall()
     
     print(row)
@@ -36,7 +53,8 @@ def posts_read_all(request):
     return JsonResponse({
         "method": "GET",
         "description": "READ ALL",
-        "token": f"{csrf_value}"
+        "token": f"{csrf_value}",
+        "count_match": len(row)
     })
 
 @require_http_methods(["GET"])
