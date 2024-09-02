@@ -24,7 +24,7 @@ def posts_create(request):
     print("===")
     
     with connection.cursor() as c:
-        c.execute(f"INSERT INTO posts (title, content) VALUES ({title}, {content}) returning *", [title, content])
+        c.execute("INSERT INTO posts (title, content) VALUES (%s, %s) returning *", [title, content])
         row = c.fetchone()
     
     print(row)
