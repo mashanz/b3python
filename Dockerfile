@@ -4,6 +4,8 @@ RUN pip install pdm
 WORKDIR /app-build
 COPY . .
 RUN pdm build
+RUN pdm install
+RUN pdm run src/manage.py collectstatic --noinput
 
 # Build for dependency to production
 FROM python:3.11.9-bullseye AS build-to-prod
@@ -17,6 +19,7 @@ WORKDIR /app-runner
 USER nonroot
 COPY --from=build-to-prod /usr/local/bin/granian /usr/local/bin/granian
 COPY --from=build-to-prod /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=build /app-build/src/static /app-runner/src/static
 ENV PYTHONPATH=/usr/local/lib/python3.11/site-packages
 COPY src/manage.py .
 EXPOSE 8000

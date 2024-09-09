@@ -4,11 +4,26 @@ services:
   aplikasi:
     container_name: servis_django
     image: localhost/b3python
+    environment:
+      SECRET_KEY: ini_adalah_rahasia
+      DEBUG: True
+      ALLOWED_HOSTS: '*'
+      DB_HOST: databes
+      DB_NAME: b3python
+      DB_USER: postgres
+      DB_PASS: example
+      DB_PORT: 5432
+    # entrypoint: "python3 manage.py migrate && /usr/local/bin/granian django_modular.wsgi:application --host 0.0.0.0 --interface wsgi"
+    depends_on:
+      - databes
+    volumes:
+      - storage-bersama:/app-runner/src/static
   databes:
     container_name: servis_db_postgres
     image: postgres:16.4-alpine
     environment:
       POSTGRES_PASSWORD: example
+      POSTGRES_DB: b3python
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
   proksi:
@@ -20,3 +35,7 @@ services:
       - "80:80"
     volumes:
       - ./docker/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - storage-bersama:/app-runner/src/static
+
+volumes:
+  storage-bersama:
