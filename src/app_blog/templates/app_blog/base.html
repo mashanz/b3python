@@ -8,13 +8,15 @@
         {% block title %}{% endblock %}
     </title>
 
+    <link rel="stylesheet" href="{% static 'app_blog/style.css' %}">
+
     {% block head %}{% endblock %}
 
 </head>
 <body>
     {% include 'app_blog/components/header.html' %}
     
-    <main>
+    <main class="p-4 h-screen">
         {% block content %}{% endblock %}
     </main>
     
