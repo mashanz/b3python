@@ -26,6 +26,8 @@ services:
       POSTGRES_DB: b3python
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
   proksi:
     container_name: servis_reverse_proxy
     build:
