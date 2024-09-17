@@ -9,9 +9,13 @@
 {% block head %}{% endblock %}
 
 {% block content %}
-    <div>
+    <div class="flex">
         content Create
-
-        <button class="btn btn-primary">Create</button>
+        <form class="card max-w-md mx-auto w-full flex-col gap-4" method="POST">
+            {% csrf_token %}
+            <input class="input input-bordered w-full" type="text" name="title" id="title" placeholder="Title" required>
+            <input class="input input-bordered w-full" type="text" name="content" id="content" placeholder="Content" required>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
     </div>
 {% endblock %}
