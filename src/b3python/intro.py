@@ -1,6 +1,6 @@
 # # # parameter dalam python
 
-# # x = 2
+x = 2
 # # x = "satu dua tiga"
 # # x = [1,2,3]
 
@@ -20,11 +20,11 @@ print(f"nilai x = {x} dan tipe datanya adalah {type(x)}")
 #     print(" ye adalah satu")
 # else:
 #     print("Ye suka suka, ga kurang dan ga sama")
-    
 
-def luas_persegi(p: int, l: int) -> int:
+
+def luas_persegi(panjang: int, lebar: int) -> int:
     """Fungsi menghitung luas Persegi
-    
+
     input
     ======
     p -> panjang
@@ -37,12 +37,8 @@ def luas_persegi(p: int, l: int) -> int:
         print(p * l)
     ```
     """
-    return p*l
+    return panjang * lebar
 
 
-
-def pytagoras(...):
-    return ...
-
-if __name__=="__main__":
-    print(luas_persegi(2,3))
+if __name__ == "__main__":
+    print(luas_persegi(2, 3))

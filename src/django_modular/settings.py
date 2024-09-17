@@ -16,13 +16,13 @@ from pathlib import Path
 
 env = environ.Env(
     DEBUG=(bool, False),
-    SECRET_KEY=(str, 'asdf'),
+    SECRET_KEY=(str, "asdf"),
     ALLOWED_HOSTS=(list, ["*"]),
     DB_HOST=(str, "localhost"),
     DB_NAME=(str, "postgres"),
     DB_USER=(str, "postgres"),
-    DB_PASS=(str, 'postgres'),
-    DB_PORT=(int, 5432)
+    DB_PASS=(str, "postgres"),
+    DB_PORT=(int, 5432),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 print(BASE_DIR.parent)
 
 # READ ENVIRON / REPLACE DEFAULT
-environ.Env.read_env(os.path.join(BASE_DIR.parent, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR.parent, ".env"))
 
 print(env("DEBUG"))
 
@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app_landing",
-    "app_blog"
+    "app_blog",
 ]
 
 MIDDLEWARE = [
@@ -101,7 +101,7 @@ DATABASES = {
         "NAME": env("DB_NAME"),
         "USER": env("DB_USER"),
         "PASSWORD": env("DB_PASS"),
-        "PORT": env("DB_PORT")
+        "PORT": env("DB_PORT"),
     }
 }
 

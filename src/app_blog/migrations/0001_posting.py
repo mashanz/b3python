@@ -8,19 +8,23 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunSQL(
-            sql=[(
-                """
+            sql=[
+                (
+                    """
                 CREATE TABLE IF NOT EXISTS posts (
                     "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
                     "title" varchar,
                     "content" text
                 );
                 """
-            )],
-            reverse_sql=[(
-                """
+                )
+            ],
+            reverse_sql=[
+                (
+                    """
                 DROP TABLE IF EXISTS posts;
                 """
-            )]
+                )
+            ],
         )
     ]
