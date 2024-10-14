@@ -1,13 +1,8 @@
 # # # parameter dalam python
 
 x = 2
-# # x = "satu dua tiga"
-# # x = [1,2,3]
 
 print(f"nilai x = {x} dan tipe datanya adalah {type(x)}")
-
-# # y = input("masukan nama")
-# # print(y)
 
 # # # operasi aritmatika
 # # x =  1 + 1 / 2 * 5
