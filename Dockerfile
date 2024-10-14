@@ -7,4 +7,6 @@ RUN uv sync --no-cache --no-python-downloads  --locked --no-dev
 FROM deps AS build
 COPY . .
 RUN uv run src/manage.py collectstatic --noinput
-CMD ["uv", "run", "granian", "django_modular.wsgi:application", "--host", "0.0.0.0", "--interface", "wsgi"]
+FROM build AS runner
+WORKDIR /app/src
+ENTRYPOINT [ "/app/entrypoint.sh" ]

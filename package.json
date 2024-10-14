@@ -2,6 +2,7 @@
   "name": "b3python",
   "type": "module",
   "scripts": {
+    "py:build": "podman build . -t b3python && podman container stop django || true && podman container rm django || true && podman run --name django b3python",
     "tw:watch": "tailwindcss -i ./src/app_blog/static/app_blog/app.css -o ./src/app_blog/static/app_blog/style.css --watch",
     "tw:build": "tailwindcss -i ./src/app_blog/static/app_blog/app.css -o ./src/app_blog/static/app_blog/style.css --minify"
   },
